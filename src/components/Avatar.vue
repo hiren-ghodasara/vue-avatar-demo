@@ -1,13 +1,27 @@
 <template>
   <div>
     <div class="img-box">
-      <img alt="example" v-bind:src="avatarSrc?avatarSrc:defaultAvatarSrc" slot="cover" />
-      <input type="file" ref="file" style="display: none" @change="onFileChange" />
+      <img
+        alt="example"
+        v-bind:src="avatarSrc ? avatarSrc : defaultAvatarSrc"
+        slot="cover"
+      />
+      <input
+        type="file"
+        ref="file"
+        style="display: none"
+        @change="onFileChange"
+      />
       <a-icon class="avg-class" type="camera" @click="$refs.file.click()" />
       <a-icon class="avg-class" type="delete" @click="removeImg" />
     </div>
     <div class="modal-box">
-      <a-modal title="Basic Modal" v-model="visible" @cancel="handleCancel" @ok="handleOk">
+      <a-modal
+        title="Basic Modal"
+        v-model="visible"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      >
         <div ref="CropperImg" id="resizer-demo"></div>
       </a-modal>
     </div>
