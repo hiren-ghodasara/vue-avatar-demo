@@ -27,3 +27,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+
+git push -f git@github.com:hiren-ghodasara/vue-avatar-demo.git master:gh-pages

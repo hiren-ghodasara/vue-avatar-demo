@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Avatar msg="Welcome to Your Vue.js App" />
+    <Avatar />
   </div>
 </template>
 

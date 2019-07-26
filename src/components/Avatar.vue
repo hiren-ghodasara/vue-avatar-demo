@@ -1,27 +1,13 @@
 <template>
   <div>
     <div class="img-box">
-      <img
-        alt="example"
-        v-bind:src="avatarSrc ? avatarSrc : defaultAvatarSrc"
-        slot="cover"
-      />
-      <input
-        type="file"
-        ref="file"
-        style="display: none"
-        @change="onFileChange"
-      />
+      <img alt="example" v-bind:src="avatarSrc ? avatarSrc : defaultAvatarSrc" slot="cover" />
+      <input type="file" ref="file" style="display: none" @change="onFileChange" />
       <a-icon class="avg-class" type="camera" @click="$refs.file.click()" />
       <a-icon class="avg-class" type="delete" @click="removeImg" />
     </div>
     <div class="modal-box">
-      <a-modal
-        title="Basic Modal"
-        v-model="visible"
-        @cancel="handleCancel"
-        @ok="handleOk"
-      >
+      <a-modal title="Basic Modal" width="800px" v-model="visible" @cancel="handleCancel" @ok="handleOk">
         <div ref="CropperImg" id="resizer-demo"></div>
       </a-modal>
     </div>
@@ -36,11 +22,15 @@ var resize;
 var loadCropper = function(result) {
   var el = document.getElementById("resizer-demo");
   resize = new Croppie(el, {
-    viewport: { width: 100, height: 100 },
-    boundary: { width: 200, height: 200 },
+    viewport: { width: 296, height: 346 },
+    boundary: { width: 550, height: 550 },
     showZoomer: false,
-    enableResize: true
-    //enableOrientation: true,
+    //enableResize: true,
+    //enableOrientation: true
+    // resizeControls: {
+    //   width: true,
+    //   height: false
+    // }
     //mouseWheelZoom: "ctrl"
   });
   resize.bind({
@@ -52,8 +42,9 @@ export default {
   data() {
     return {
       visible: false,
-      defaultAvatarSrc: "https://image.flaticon.com/icons/svg/74/74472.svg",
-      avatarSrc: "https://image.flaticon.com/icons/svg/74/74472.svg"
+      defaultAvatarSrc:
+        "https://pwcenter.org/sites/default/files/default_images/default_profile.png",
+      avatarSrc: ""
     };
   },
   mounted: function() {
@@ -68,7 +59,7 @@ export default {
       resize.destroy();
     },
     handleOk() {
-      resize.result("rawcanvas").then(blob => {
+      resize.result("rawcanvas", "", "", { quality: 1 }).then(blob => {
         var imgAsDataURL = blob.toDataURL("image/png");
         this.avatarSrc = imgAsDataURL;
         //this.avatarSrc = window.URL.createObjectURL(blob);
@@ -105,18 +96,20 @@ export default {
   }
 };
 </script>
-
 <style>
 .img-box {
   display: inline-block;
   border: 2px solid #ccc;
   border-radius: 4px;
   box-shadow: 0px 0px 6px #ccc;
-  width: 290px;
+  width: 300px;
+  height: 350px;
   position: relative;
 }
 .img-box img {
   width: 100%;
+  height: 100%;
+  object-fit: cover;
   background: #f5f5f5;
 }
 .avg-class {
